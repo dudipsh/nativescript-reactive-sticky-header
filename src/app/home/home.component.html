@@ -1,0 +1,39 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Home"></Label>
+</ActionBar>
+
+<GridLayout rows="auto, *" class="page" height="100%" (loaded)="onLoaded($event)">
+    <StackLayout #bar id="bar" backgroundColor="#3eabc1" row="0">
+        <FlexboxLayout>
+            <Label text="רשימת נוכחות"></Label>
+            <Button text="תצוגה שבועית"></Button>
+        </FlexboxLayout>
+        <FlexboxLayout>
+            <Label text="Add Req"></Label>
+            <Label text="Start"></Label>
+            <Label text="End {{lastScroll}}"></Label>
+        </FlexboxLayout>
+    </StackLayout>
+    <RadListView (scrolled)="onScroll($event)"
+                 (scrollEnded)="onScrollEnded($event)"
+                 [scrolledEvent]="scrolledEvent"
+                 [items]="items" row="1"  id="listView" #myListView >
+
+        <ng-template tkListItemTemplate let-item="item">
+        <StackLayout>
+            <Label [text]="item.name"> </Label>
+        </StackLayout>
+        </ng-template>
+    </RadListView>
+    <GridLayout backgroundColor="#13e29e" #dockedLabelContainer id="dock" verticalAlignment="top"
+                [opacity]="dockedLabelOpacity" class="docked-label-container">
+        <StackLayout  [opacity]="dockedLabelOpacity">
+            <FlexboxLayout>
+                <Label text="Laala "></Label>
+                <Label text="Start "></Label>
+                <Label text="End "></Label>
+            </FlexboxLayout>
+
+        </StackLayout>
+    </GridLayout>
+</GridLayout>
