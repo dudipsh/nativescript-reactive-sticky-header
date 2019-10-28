@@ -15,9 +15,9 @@ import {
 export class HomeComponent implements OnInit, AfterViewInit {
 
     animation: Animation = undefined;
-    dock: View
-    bar: View
-    listView: View
+    dock: View;
+    bar: View;
+    listView: View;
     pageLoaded = false;
     _screenHeight;
     lastScroll;
@@ -29,16 +29,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     constructor(private page: Page) {
     }
 
-    onLoaded(args: EventData) {
-    }
-
     upAnimation() {
-        // if (!this.animation) return;
         if (this.animation && this.animation.isPlaying && !this.stopEvent) {
             //   this.animation.cancel();
                return;
         }
-
         const def1: AnimationDefinition = {
             target: this.bar,
             duration: 100,
@@ -47,10 +42,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 x: 0
             },
             opacity: 0,
-            //   height: 0,
-
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
-        }
+        };
         const def2: AnimationDefinition = {
             target: this.dock,
             duration: 150,
@@ -68,16 +61,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
             this.dockedLabelOpacity = 1;
             return;
         }, (err) => {
-            console.log('canceled...')
         }).catch(() => {
-            console.log('canceleds...')
         });
     }
 
     downAnimation() {
         if (!this.animation || !this.pageLoaded) return;
         if (this.animation && this.animation.isPlaying && !this.stopEvent) {
-            // console.log(this.animation)
               return;
             //this.animation.cancel();
         }
@@ -90,7 +80,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 y: 0,
                 x: 0
             },
-            //    height: 80,
             opacity: 1,
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
         }
@@ -102,19 +91,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 x: 0
             },
             opacity: 0,
-          //  height: this.listViewMargin,
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
         };
-        this.animation = new Animation([def2, def1])
+        this.animation = new Animation([def2, def1]);
 
         this.animation.play().then(() => {
             this.stopEvent = true;
-            this.dockedLabelOpacity = 0
+            this.dockedLabelOpacity = 0;
             return;
         }, (err) => {
-            console.log('canceled...')
         }).catch(() => {
-            console.log('canceled...')
         });
     }
 
@@ -148,9 +134,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.dock = this.page.getViewById<View>('dock')
-        this.bar = this.page.getViewById<View>('bar')
-        this.listView = this.page.getViewById<View>('listView')
+        this.dock = this.page.getViewById<View>('dock');
+        this.bar = this.page.getViewById<View>('bar');
+        this.listView = this.page.getViewById<View>('listView');
         this.listView.marginTop = 0;
         this.pageLoaded = true;
     }
