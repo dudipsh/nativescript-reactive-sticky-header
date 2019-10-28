@@ -2,8 +2,8 @@
     <Label class="action-bar-title" text="Home"></Label>
 </ActionBar>
 
-<GridLayout rows="auto, *" class="page" height="100%" (loaded)="onLoaded($event)">
-    <StackLayout #bar id="bar" backgroundColor="#3eabc1" row="0">
+<GridLayout rows="auto, *" class="page" [height]="screenHeight" (loaded)="onLoaded($event)">
+    <StackLayout #bar id="bar" backgroundColor="#3eabc1" row="0" height="80"  >
         <FlexboxLayout>
             <Label text="רשימת נוכחות"></Label>
             <Button text="תצוגה שבועית"></Button>
@@ -14,10 +14,10 @@
             <Label text="End {{lastScroll}}"></Label>
         </FlexboxLayout>
     </StackLayout>
-    <StackLayout   row="1" >
-        <RadListView (scrolled)="onScroll($event)"  height="99%"
+    <StackLayout row="1"  id="listView">
+        <RadListView (scrolled)="onScroll($event)"  height="100%"
                      (scrollEnded)="onScrollEnded($event)"
-                     [items]="items"  id="listView" #myListView >
+                     [items]="items"  #myListView >
 
             <ng-template let-item="item">
                 <StackLayout>
@@ -27,7 +27,7 @@
         </RadListView>
     </StackLayout>
 
-    <GridLayout backgroundColor="#13e29e" #dockedLabelContainer id="dock" verticalAlignment="top"
+    <GridLayout backgroundColor="#13e29e" #dockedLabelContainer height="40" id="dock" verticalAlignment="top"
                 [opacity]="dockedLabelOpacity" class="docked-label-container">
         <StackLayout  [opacity]="dockedLabelOpacity">
             <FlexboxLayout>
