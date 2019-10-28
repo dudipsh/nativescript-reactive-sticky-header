@@ -14,17 +14,19 @@
             <Label text="End {{lastScroll}}"></Label>
         </FlexboxLayout>
     </StackLayout>
-    <RadListView (scrolled)="onScroll($event)"
-                 (scrollEnded)="onScrollEnded($event)"
-                 [scrolledEvent]="scrolledEvent"
-                 [items]="items" row="1"  id="listView" #myListView >
+    <StackLayout   row="1" >
+        <RadListView (scrolled)="onScroll($event)"  height="99%"
+                     (scrollEnded)="onScrollEnded($event)"
+                     [items]="items"  id="listView" #myListView >
 
-        <ng-template tkListItemTemplate let-item="item">
-        <StackLayout>
-            <Label [text]="item.name"> </Label>
-        </StackLayout>
-        </ng-template>
-    </RadListView>
+            <ng-template let-item="item">
+                <StackLayout>
+                    <Label [text]="item?.name"> </Label>
+                </StackLayout>
+            </ng-template>
+        </RadListView>
+    </StackLayout>
+
     <GridLayout backgroundColor="#13e29e" #dockedLabelContainer id="dock" verticalAlignment="top"
                 [opacity]="dockedLabelOpacity" class="docked-label-container">
         <StackLayout  [opacity]="dockedLabelOpacity">

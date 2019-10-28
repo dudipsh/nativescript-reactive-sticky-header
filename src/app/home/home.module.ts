@@ -4,6 +4,8 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import {NativeScriptUIListViewModule} from "nativescript-ui-listview/angular";
+import {NativeScriptAnimationsModule} from "nativescript-angular/animations";
+import {NativeScriptAnimationPlayer} from "nativescript-angular/animations/animation-player";
 
 @NgModule({
     imports: [
