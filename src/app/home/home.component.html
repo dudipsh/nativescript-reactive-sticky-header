@@ -1,41 +1,53 @@
 <ActionBar class="action-bar">
     <Label class="action-bar-title" text="Home"></Label>
 </ActionBar>
+<ng-template #beforeScrollTpl>
+    <FlexboxLayout>
+        <Label text="רשימת נוכחות"></Label>
+        <Button text="תצוגה שבועית"></Button>
+    </FlexboxLayout>
+    <FlexboxLayout>
+        <Label text="Add Req"></Label>
+        <Label text="Start"></Label>
+        <Label text="End {{lastScroll}}"></Label>
+    </FlexboxLayout>
+</ng-template>
+
+<ng-template #ListTpl>
+    <RadListView (scrolled)="onScroll($event)"  height="100%"
+                 (scrollEnded)="onScrollEnded($event)"
+                 [items]="items" >
+        <ng-template let-item="item">
+            <Label [text]="item.name"> </Label>
+        </ng-template>
+    </RadListView>
+</ng-template>
+
 
 <GridLayout rows="auto, *" class="page" [height]="screenHeight" >
     <StackLayout #bar id="bar" backgroundColor="#3eabc1" row="0" height="80"  >
-        <FlexboxLayout>
-            <Label text="רשימת נוכחות"></Label>
-            <Button text="תצוגה שבועית"></Button>
-        </FlexboxLayout>
-        <FlexboxLayout>
-            <Label text="Add Req"></Label>
-            <Label text="Start"></Label>
-            <Label text="End {{lastScroll}}"></Label>
-        </FlexboxLayout>
+        <ng-container *ngTemplateOutlet="beforeScrollTpl"></ng-container>
     </StackLayout>
     <StackLayout row="1"  id="listView">
-        <RadListView (scrolled)="onScroll($event)"  height="100%"
-                     (scrollEnded)="onScrollEnded($event)"
-                     [items]="items"  #myListView >
-
-            <ng-template let-item="item">
-                <StackLayout>
-                    <Label [text]="item?.name"> </Label>
-                </StackLayout>
-            </ng-template>
-        </RadListView>
+        <ng-container *ngTemplateOutlet="ListTpl"></ng-container>
     </StackLayout>
 
-    <GridLayout backgroundColor="#13e29e" #dockedLabelContainer height="40" id="dock" verticalAlignment="top"
+    <GridLayout #dockedLabelContainer id="dock" verticalAlignment="top"
                 [opacity]="dockedLabelOpacity" class="docked-label-container">
-        <StackLayout  [opacity]="dockedLabelOpacity">
-            <FlexboxLayout>
-                <Label text="Laala "></Label>
-                <Label text="Start "></Label>
-                <Label text="End "></Label>
-            </FlexboxLayout>
-
-        </StackLayout>
+        <ng-container *ngTemplateOutlet="afterScrollTpl"></ng-container>
     </GridLayout>
 </GridLayout>
+
+
+
+
+
+<ng-template #afterScrollTpl>
+    <StackLayout  backgroundColor="#13e29e"  [opacity]="dockedLabelOpacity"  height="40">
+        <FlexboxLayout>
+            <Label text="aaaaaaaaa "></Label>
+            <Label text="Start "></Label>
+            <Label text="End "></Label>
+        </FlexboxLayout>
+    </StackLayout>
+</ng-template>

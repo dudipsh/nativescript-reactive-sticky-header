@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
 import {ListViewScrollEventData, RadListView} from "nativescript-ui-listview";
 import {EventData, Page, View} from "tns-core-modules/ui/page";
 import {screen} from "tns-core-modules/platform/platform"
@@ -13,6 +13,7 @@ import {
     templateUrl: "./home.component.html"
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+    @ViewChild('titleTpl', {static: false}) titleTpl: TemplateRef<any>;
 
     animation: Animation = undefined;
     dock: View;
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             opacity: 1,
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
         };
-        this.animation = new Animation([def2, def1]);
+        this.animation = new Animation([def1, def2]);
         this.listView.marginTop = -40;
         this.animation.play().then(() => {
             this.stopEvent = true;
@@ -159,5 +160,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
         return items;
     }
+    //
+    // get listContext() {
+    //     return {
+    //         item: this.items
+    //     }
+    // }
 
 }
