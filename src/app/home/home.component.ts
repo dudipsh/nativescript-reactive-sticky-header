@@ -7,6 +7,9 @@ import {
     CubicBezierAnimationCurve
 } from 'tns-core-modules/ui/animation'
 
+import * as gestures from 'tns-core-modules/ui/gestures';
+import {throttle} from "~/app/decorators/throttle";
+
 @Component({
     selector: "Home",
     moduleId: module.id,
@@ -19,6 +22,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     dock: View;
     bar: View;
     listView: View;
+    radList;
     pageLoaded = false;
     _screenHeight;
     lastScroll;
@@ -56,9 +60,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
         };
         this.animation = new Animation([def1, def2]);
+        this.stopEvent = true;
         this.listView.marginTop = -40;
         this.animation.play().then(() => {
-            this.stopEvent = true;
+            this.stopEvent = false;
             this.dockedLabelOpacity = 1;
             return;
         }, (err) => {
@@ -95,9 +100,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
             curve: new CubicBezierAnimationCurve(0, .76, 0, .94)
         };
         this.animation = new Animation([def2, def1]);
-
+        this.stopEvent = true;
         this.animation.play().then(() => {
-            this.stopEvent = true;
+            this.stopEvent = false;
             this.dockedLabelOpacity = 0;
             return;
         }, (err) => {
@@ -105,10 +110,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
     }
 
+    @throttle(1000)
     onScroll(args: ListViewScrollEventData) {
         if (!this.lastScroll) {
             this.lastScroll = args.scrollOffset;
         }
+        if (this.stopEvent) return;
         if (args && args.scrollOffset && args.scrollOffset > 1) {
             if (this.lastScroll < args.scrollOffset) {
                 this.upAnimation();
@@ -116,9 +123,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
                 this.downAnimation();
             }
         }
-        this.lastScroll = args.scrollOffset;
+
         setTimeout(() => {
-            this.stopEvent = false;
+           // this.stopEvent = false;
+            this.lastScroll = args.scrollOffset;
         }, 500)
     }
 
@@ -138,6 +146,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.dock = this.page.getViewById<View>('dock');
         this.bar = this.page.getViewById<View>('bar');
         this.listView = this.page.getViewById<View>('listView');
+        this.radList = this.page.getViewById("radList");
         this.listView.marginTop = 0;
         this.pageLoaded = true;
     }

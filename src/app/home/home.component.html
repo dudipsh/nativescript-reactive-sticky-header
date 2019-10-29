@@ -3,20 +3,21 @@
 </ActionBar>
 <ng-template #beforeScrollTpl>
     <FlexboxLayout>
-        <Label text="רשימת נוכחות"></Label>
-        <Button text="תצוגה שבועית"></Button>
+        <Button class="btn btn-primary" text="btn1"></Button>
+        <Button class="btn btn-primary" text="btn2"></Button>
+
     </FlexboxLayout>
     <FlexboxLayout>
         <Label text="Add Req"></Label>
         <Label text="Start"></Label>
-        <Label text="End {{lastScroll}}"></Label>
+        <Label text="End"></Label>
     </FlexboxLayout>
 </ng-template>
 
-<ng-template #ListTpl>
-    <RadListView (scrolled)="onScroll($event)"  height="100%"
+<ng-template #ListTpl >
+    <RadListView (scrolled)="onScroll($event)"   height="100%"
                  (scrollEnded)="onScrollEnded($event)"
-                 [items]="items" >
+                 [items]="items" id="radList">
         <ng-template let-item="item">
             <Label [text]="item.name"> </Label>
         </ng-template>
@@ -25,7 +26,7 @@
 
 
 <GridLayout rows="auto, *" class="page" [height]="screenHeight" >
-    <StackLayout #bar id="bar" backgroundColor="#3eabc1" row="0" height="80"  >
+    <StackLayout #bar id="bar"  backgroundColor="#13e29e" row="0" height="80"  >
         <ng-container *ngTemplateOutlet="beforeScrollTpl"></ng-container>
     </StackLayout>
     <StackLayout row="1"  id="listView">
@@ -45,9 +46,9 @@
 <ng-template #afterScrollTpl>
     <StackLayout  backgroundColor="#13e29e"  [opacity]="dockedLabelOpacity"  height="40">
         <FlexboxLayout>
-            <Label text="aaaaaaaaa "></Label>
-            <Label text="Start "></Label>
-            <Label text="End "></Label>
+            <Label text="Add Req"></Label>
+            <Label text="Start"></Label>
+            <Label text="End"></Label>
         </FlexboxLayout>
     </StackLayout>
 </ng-template>
